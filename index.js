@@ -66,9 +66,28 @@ function drawFood() {
     ctx.fillRect(foodX, foodY, unitSize, unitSize);
 };
 
-function moveSnake() { };
-function drawSnake() {
+function moveSnake() {
+    const head = {
+        x: snake[0].x + xVelocity,
+        y: snake[0].y + yVelocity
+    }
+    snake.unshift(head);
+    if (snake[0].x == foodX && snake[0].y == foodY) {
+        score += 1;
+        scoreText.textContent = score;
+        createFood();
+    } else {
+        snake.pop();
+    }
 
+};
+function drawSnake() {
+    ctx.fillStyle = snakeColor;
+    ctx.strokeStyle = snakeBorder;
+    snake.forEach(segment => {
+        ctx.fillRect(segment.x, segment.y, unitSize, unitSize);
+        ctx.strokeRect(segment.x, segment.y, unitSize, unitSize);
+    });
 };
 function changeDirection() { };
 function checkGameOver() { };
