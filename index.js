@@ -45,7 +45,7 @@ resetBtn.addEventListener("click", resetGame);
 
 btnYes.addEventListener("click", () => {
     hideDialog();
-    requestAds(); // show ad first, then start game inside ad events
+    requestAds();
 })
 
 btnNo.addEventListener("click", () => {
@@ -61,13 +61,10 @@ function hideDialog() {
     dialog.classList.add("hidden");
 }
 
-// ─────────────────────────────────────────
-// Google IMA SDK Setup
-// ─────────────────────────────────────────
+
 const adContainer = document.getElementById("adContainer");
 const videoElement = document.getElementById("videoElement");
 
-// Google's public sample VAST linear ad tag
 const SAMPLE_AD_TAG =
     "https://pubads.g.doubleclick.net/gampad/ads?" +
     "iu=/21775744923/external/single_ad_samples&sz=640x480" +
@@ -84,7 +81,6 @@ function initIMA() {
     if (imaInitialized) return;
     imaInitialized = true;
 
-    // AdDisplayContainer must be created from user interaction
     adDisplayContainer = new google.ima.AdDisplayContainer(adContainer, videoElement);
     adDisplayContainer.initialize();
 
@@ -105,7 +101,6 @@ function initIMA() {
 function requestAds() {
     initIMA();
 
-    // Destroy previous manager if exists
     if (adsManager) {
         adsManager.destroy();
         adsManager = null;
@@ -126,7 +121,6 @@ function requestAds() {
 function onAdsManagerLoaded(adsManagerLoadedEvent) {
     adsManager = adsManagerLoadedEvent.getAdsManager(videoElement);
 
-    // Ad finished or skipped → start game
     adsManager.addEventListener(google.ima.AdEvent.Type.COMPLETE, onAdDone);
     adsManager.addEventListener(google.ima.AdEvent.Type.SKIPPED, onAdDone);
     adsManager.addEventListener(google.ima.AdEvent.Type.ALL_ADS_COMPLETED, onAdDone);
@@ -146,13 +140,11 @@ function onAdDone() {
 }
 
 function onAdError() {
-    // Graceful fallback: no ad → just start the game
     adContainer.classList.add("hidden");
     if (adsManager) { adsManager.destroy(); adsManager = null; }
     resetGame();
 }
 
-// Keep IMA in sync when window is resized
 window.addEventListener("resize", () => {
     if (adsManager) {
         adsManager.resize(window.innerWidth, window.innerHeight, google.ima.ViewMode.FULLSCREEN);
