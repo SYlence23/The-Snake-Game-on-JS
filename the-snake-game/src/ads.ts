@@ -1,8 +1,9 @@
 declare var google: any;
 
-import { resetGame } from "./main.ts";
+// Замість імпорту з main.ts (кругова залежність) — зберігаємо callback
+let onAdFinished: (() => void) | null = null;
 
-// Додаємо типізацію для елементів (as HTMLElement / as HTMLVideoElement)
+// Додаємо типізацію для елементів
 const adContainer = document.getElementById("adContainer") as HTMLElement;
 const videoElement = document.getElementById("videoElement") as HTMLVideoElement;
 
@@ -13,7 +14,6 @@ const SAMPLE_AD_TAG =
     "&gdfp_req=1&output=vast&unviewed_position_start=1" +
     "&env=vp&impl=s&correlator=";
 
-// Додаємо тип any для змінних, щоб TypeScript розумів, що це об'єкти
 let adsLoader: any;
 let adsManager: any;
 let adDisplayContainer: any;
@@ -40,7 +40,8 @@ export function initIMA() {
     );
 }
 
-export function requestAds() {
+export function requestAds(callback: () => void) {
+    onAdFinished = callback;
     initIMA();
 
     if (adsManager) {
@@ -79,13 +80,21 @@ function onAdsManagerLoaded(adsManagerLoadedEvent: any) {
 
 function onAdDone() {
     adContainer.classList.add("hidden");
-    resetGame();
+    if (onAdFinished) {
+        const cb = onAdFinished;
+        onAdFinished = null; // Очищаємо, щоб не викликати двічі
+        cb();
+    }
 }
 
 function onAdError() {
     adContainer.classList.add("hidden");
     if (adsManager) { adsManager.destroy(); adsManager = null; }
-    resetGame();
+    if (onAdFinished) {
+        const cb = onAdFinished;
+        onAdFinished = null;
+        cb();
+    }
 }
 
 window.addEventListener("resize", () => {

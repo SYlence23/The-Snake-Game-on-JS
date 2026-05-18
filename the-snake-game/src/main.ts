@@ -17,6 +17,8 @@ window.addEventListener("keydown", (event: KeyboardEvent) => {
 
 resetBtn?.addEventListener("click", resetGame);
 
+let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
 export function gameStart() {
   state.running = true;
   if (scoreText) scoreText.textContent = state.score.toString();
@@ -26,8 +28,10 @@ export function gameStart() {
 };
 
 function nextTick() {
+  if (timeoutId) clearTimeout(timeoutId); // Очищаємо попередній таймер
+
   if (state.running) {
-    setTimeout(() => {
+    timeoutId = setTimeout(() => {
       clearBoard();
       drawFood();
       moveSnake();

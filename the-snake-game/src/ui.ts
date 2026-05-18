@@ -1,6 +1,6 @@
 import { dialog, btnYes, btnNo } from "./board.ts";
 import { requestAds } from "./ads.ts";
-import { gameStart } from "./main.ts";
+import { resetGame } from "./main.ts";
 
 export function showDialog() {
     if (dialog) dialog.classList.remove("hidden");
@@ -12,8 +12,8 @@ export function hideDialog() {
 
 btnYes?.addEventListener("click", () => {
     hideDialog();
-    gameStart();
-    requestAds();
+    // Передаємо resetGame як callback — гра стартує тільки ПІСЛЯ закінчення реклами
+    requestAds(resetGame);
 })
 
 btnNo?.addEventListener("click", () => {

@@ -1,60 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600&display=swap');
+
+/* ─── Скидання стилів ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0b0c10;
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(69, 242, 72, 0.08), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(69, 242, 72, 0.08), transparent 25%);
+  font-family: 'Inter', sans-serif;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* ─── Головний контейнер ─── */
 #app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 40px;
+  background: rgba(31, 40, 51, 0.6);
+  border: 1px solid rgba(102, 252, 241, 0.1);
+  border-radius: 24px;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  position: relative;
+}
+
+/* Декоративний заголовок (псевдоелемент) */
+#app::before {
+  content: "🐍 NEON SNAKE";
+  font-family: 'Press Start 2P', cursive;
+  font-size: 16px;
+  color: #66fcf1;
+  text-shadow: 0 0 10px rgba(102, 252, 241, 0.6);
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+/* ─── Рахунок ─── */
+#scoreText {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 56px;
+  color: #45f248;
+  text-shadow: 
+    0 0 15px rgba(69, 242, 72, 0.8),
+    0 0 30px rgba(69, 242, 72, 0.4);
+  line-height: 1;
+  min-width: 3ch;
   text-align: center;
 }
 
+/* ─── Ігрове поле (Canvas) ─── */
 #gameBoard {
-  border: 3px solid;
+  background-color: #0b0c10;
+  border: 2px solid rgba(69, 242, 72, 0.3);
+  border-radius: 8px;
+  box-shadow: 
+    0 0 20px rgba(69, 242, 72, 0.15),
+    inset 0 0 30px rgba(0, 0, 0, 0.8);
+  display: block;
 }
 
-#scoreText {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 100px;
-
-}
-
+/* ─── Кнопка Reset ─── */
 #resetBtn {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 25px;
-  width: 100px;
-  height: 50px;
-  border: 4px solid;
-  border-radius: 15px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  padding: 16px 32px;
+  background: transparent;
+  color: #66fcf1;
+  border: 2px solid rgba(102, 252, 241, 0.4);
+  border-radius: 12px;
   cursor: pointer;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
 }
 
+#resetBtn:hover {
+  background: rgba(102, 252, 241, 0.1);
+  border-color: #66fcf1;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(102, 252, 241, 0.4);
+  transform: translateY(-2px);
+}
+
+#resetBtn:active {
+  transform: translateY(1px);
+}
+
+/* ─── Модальне вікно (Overlay) ─── */
 #customDialog {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 12, 16, 0.85);
+  backdrop-filter: blur(8px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
+#customDialog.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ─── Контент модального вікна ─── */
 .dialog-box {
-  background-color: #222;
-  color: white;
-  padding: 30px;
-  border: 3px solid lightgreen;
-  border-radius: 10px;
+  background: rgba(31, 40, 51, 0.95);
+  border: 2px solid #45f248;
+  border-radius: 20px;
+  padding: 50px;
   text-align: center;
+  box-shadow: 
+    0 0 40px rgba(69, 242, 72, 0.2),
+    0 20px 50px rgba(0, 0, 0, 0.5);
+  transform: scale(1);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.hidden {
-  display: none !important;
+#customDialog.hidden .dialog-box {
+  transform: scale(0.9);
 }
 
+.dialog-box h2 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* ─── Кнопки в модалці ─── */
+.dialog-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.dialog-buttons button {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  padding: 16px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#btnYes {
+  background: #45f248;
+  color: #0b0c10;
+  border: none;
+  box-shadow: 0 0 15px rgba(69, 242, 72, 0.4);
+}
+
+#btnYes:hover {
+  background: #5cff5f;
+  box-shadow: 0 0 25px rgba(69, 242, 72, 0.6);
+  transform: translateY(-2px);
+}
+
+#btnNo {
+  background: transparent;
+  color: #ff4d4d;
+  border: 2px solid rgba(255, 77, 77, 0.5);
+}
+
+#btnNo:hover {
+  background: rgba(255, 77, 77, 0.1);
+  border-color: #ff4d4d;
+  box-shadow: 0 0 15px rgba(255, 77, 77, 0.3);
+  transform: translateY(-2px);
+}
+
+.dialog-buttons button:active {
+  transform: translateY(1px);
+}
+
+/* ─── Рекламний контейнер ─── */
 #adContainer {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: #000;
+  inset: 0;
+  background: #000;
   z-index: 2000;
   display: flex;
   justify-content: center;
@@ -67,6 +209,7 @@
   object-fit: contain;
 }
 
+/* ─── Утиліти ─── */
 .hidden {
   display: none !important;
 }
