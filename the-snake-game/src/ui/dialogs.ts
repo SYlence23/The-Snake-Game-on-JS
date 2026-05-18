@@ -1,6 +1,6 @@
 import { dialog, btnYes, btnNo } from "./board.ts";
-import { requestAds } from "./ads.ts";
-import { resetGame } from "./main.ts";
+import { requestAds } from "../services/ads.ts";
+import { resetGame } from "../main.ts";
 
 export function showDialog() {
     if (dialog) dialog.classList.remove("hidden");

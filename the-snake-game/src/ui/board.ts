@@ -1,4 +1,4 @@
-import { boardBackground, gameWidth, gameHeitght } from "./constants";
+import { boardBackground, gameWidth, gameHeitght } from "../core/constants.ts";
 
 export const gameBoard = document.getElementById("gameBoard") as HTMLCanvasElement;
 export const ctx = gameBoard.getContext("2d")!;

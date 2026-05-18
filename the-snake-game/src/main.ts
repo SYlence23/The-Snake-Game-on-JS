@@ -1,10 +1,10 @@
 import './style.css';
-import { createFood, drawFood } from './food.ts';
-import { state } from './state.ts';
-import { scoreText, clearBoard, resetBtn } from './board.ts';
-import { drawSnake, moveSnake, checkGameOver, changeDirection } from './snake.ts';
-import { unitSize } from './constants.ts';
-import { showDialog } from './ui.ts';
+import { createFood, drawFood } from './game/food.ts';
+import { state } from './core/state.ts';
+import { scoreText, clearBoard, resetBtn } from './ui/board.ts';
+import { drawSnake, moveSnake, checkGameOver, changeDirection } from './game/snake.ts';
+import { unitSize } from './core/constants.ts';
+import { showDialog } from './ui/dialogs.ts';
 
 window.addEventListener("keydown", changeDirection);
 window.addEventListener("keydown", (event: KeyboardEvent) => {

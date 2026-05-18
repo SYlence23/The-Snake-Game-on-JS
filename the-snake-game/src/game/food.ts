@@ -1,6 +1,6 @@
-import { state } from "./state.ts";
-import { gameWidth, unitSize, foodColor } from "./constants.ts";
-import { ctx } from "./board.ts";
+import { state } from "../core/state.ts";
+import { gameWidth, unitSize, foodColor } from "../core/constants.ts";
+import { ctx } from "../ui/board.ts";
 
 export function createFood() {
     const randomFood = (min: number, max: number) => {

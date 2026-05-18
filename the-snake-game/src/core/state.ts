@@ -1,4 +1,4 @@
-import { unitSize } from "./constants";
+import { unitSize } from "./constants.ts";
 
 export const state = {
     running: false,

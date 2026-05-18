@@ -20,15 +20,19 @@ A classic Snake game rebuilt with a modern technology stack. Originally a single
 
 ```text
 src/
-├── main.ts       # Entry point: game loop and initialization
-├── state.ts      # Global game state (score, snake coordinates, speed)
-├── constants.ts  # Game configuration and constants (colors, sizes)
-├── snake.ts      # Snake logic (movement, drawing, collision detection)
-├── food.ts       # Food logic (random spawning, drawing)
-├── board.ts      # Canvas context and board clearing
-├── ui.ts         # User interface logic (dialogs, buttons)
-├── ads.ts        # Google IMA SDK integration for video ads
-└── style.css     # UI styling (neon arcade theme)
+├── core/
+│   ├── constants.ts  # Game configuration and constants (colors, sizes)
+│   └── state.ts      # Global game state (score, snake coordinates, speed)
+├── game/
+│   ├── food.ts       # Food logic (random spawning, drawing)
+│   └── snake.ts      # Snake logic (movement, drawing, collision detection)
+├── ui/
+│   ├── board.ts      # Canvas context and board clearing
+│   └── dialogs.ts    # User interface logic (dialogs, buttons)
+├── services/
+│   └── ads.ts        # Google IMA SDK integration for video ads
+├── main.ts           # Entry point: game loop and initialization
+└── style.css         # UI styling (neon arcade theme)
 ```
 
 ## 💻 Local Development

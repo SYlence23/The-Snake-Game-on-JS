@@ -1,7 +1,7 @@
-import { unitSize, snakeColor, snakeBorder, gameWidth, gameHeitght } from "./constants.ts";
-import { showDialog } from "./ui.ts";
-import { ctx, scoreText } from "./board.ts";
-import { state } from "./state.ts";
+import { unitSize, snakeColor, snakeBorder, gameWidth, gameHeitght } from "../core/constants.ts";
+import { showDialog } from "../ui/dialogs.ts";
+import { ctx, scoreText } from "../ui/board.ts";
+import { state } from "../core/state.ts";
 import { createFood } from "./food.ts";
 
 
