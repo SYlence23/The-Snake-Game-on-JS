@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Snake Game</title>
-    <!-- IMA SDK must be loaded BEFORE index.js -->
     <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
 </head>
 
@@ -15,7 +14,6 @@
         <canvas id="gameBoard" width="500" height="500"></canvas>
         <div id="scoreText">0</div>
         <button id="resetBtn">Reset</button>
-        <!-- Dialog Overlay (hidden by default) -->
         <div id="customDialog" class="hidden">
             <div class="dialog-box">
                 <h2 id="dialogText">Do you want to play?</h2>
@@ -26,7 +24,6 @@
             </div>
         </div>
 
-        <!-- Google IMA SDK Ad Container (full-screen overlay) -->
         <div id="adContainer" class="hidden">
             <video id="videoElement"></video>
         </div>
