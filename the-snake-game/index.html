@@ -1,13 +1,36 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>the-snake-game</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snake Game</title>
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body>
+  <div id="app">
+    <canvas id="gameBoard" width="500" height="500"></canvas>
+    <div id="scoreText">0</div>
+    <button id="resetBtn">Reset</button>
+
+    <div id="customDialog">
+      <div class="dialog-box">
+        <h2 id="dialogText">Do you want to play?</h2>
+        <div class="dialog-buttons">
+          <button id="btnYes">YES (Enter)</button>
+          <button id="btnNo">NO (Backspace)</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="adContainer" class="hidden">
+      <video id="videoElement"></video>
+    </div>
+  </div>
+  <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
