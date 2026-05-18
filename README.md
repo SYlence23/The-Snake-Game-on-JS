@@ -56,7 +56,7 @@ This will generate an optimized `dist/` directory with static files (HTML, CSS, 
 
 ## 🔗 Demo / Deploy
 
-*(Placeholder)*: [Play the Game Here!](https://thesnakegamedemo.netlify.app/)
+[Play the Game Here!](https://thesnakegamedemo.netlify.app/)
 
 ---
 *Created as part of a Vanilla JS to Vite + TypeScript refactoring assignment.*
